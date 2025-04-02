@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amelie - Life, Home, Food</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#e63946",  /* Pink */
+            secondary: "#f8d7da",
+            accent: "#ffca28",
+            pinkLight: "#fde2e4",
+            pinkDark: "#f9bec7",
+          },
+          fontFamily: {
+            playfair: ['"Playfair Display"', "serif"],
+            poppins: ["Poppins", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts -->
+  <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap"
+          rel="stylesheet"
+  />
+
+  <style>
+    .hero-image {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("https://images.pexels.com/photos/733856/pexels-photo-733856.jpeg");
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body>
+<!-- Fixed Header -->
+<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50 py-4">
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    <!-- Change 'Amelie' logo to pink -->
+    <a th:href="@{/}" class="text-3xl font-playfair italic text-pink-600">Amelie</a>
+    <nav class="hidden md:block">
+      <ul class="flex space-x-8">
+        <li><a th:href="@{/}" class="text-gray-700 hover:text-primary transition">Home</a></li>
+        <li><a th:href="@{/about}" class="text-gray-700 hover:text-primary transition">About Me</a></li>
+        <!-- Change 'Contact' link to black -->
+        <li><a th:href="@{/contact}" class="text-black font-medium">Contact</a></li>
+        <li><a th:href="@{/login}" class="text-gray-700 hover:text-primary transition">Login</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center bg-pinkLight text-white pt-32">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+    <!-- Image Section -->
+    <div class="md:w-1/2 flex justify-center">
+      <img
+              src="https://img.freepik.com/free-photo/young-businesswoman-posing-with-copy-space_23-2148826478.jpg"
+              alt="Woman with tablet"
+              class="w-full max-w-md rounded-lg shadow-lg"
+      />
+    </div>
+
+    <!-- Text Section -->
+    <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left md:pl-10">
+      <!-- Heading in Pink Box -->
+      <h2 class="text-4xl md:text-5xl font-playfair italic mb-4 bg-pink-500 inline-block px-6 py-2 text-white">
+        Lorem ipsum dolor sit amet consectetur
+      </h2>
+
+      <!-- Description -->
+      <p class="text-lg mb-8 text-gray-800">
+        Lorem ipsum dolor sit amet, adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
+      </p>
+
+      <!-- Subscribe Button -->
+      <a
+              th:href="@{/register}"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded transition transform hover:scale-105 inline-block"
+      >
+        Subscribe
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Add TailwindCSS or Custom CSS -->
+<style>
+  /* Assuming you're using TailwindCSS, but if not, here's the equivalent custom CSS */
+  .bg-pinkLight {
+    background-color: #ffe6f0; /* Light pink background */
+  }
+
+  .bg-pink-500 {
+    background-color: #ff69b4; /* Hot pink for the heading box */
+  }
+
+  .bg-yellow-500 {
+    background-color: #facc15; /* Yellow for the button */
+  }
+
+  .bg-yellow-600 {
+    background-color: #eab308; /* Darker yellow for hover */
+  }
+
+  .font-playfair {
+    font-family: 'Playfair Display', serif; /* Ensure this font is loaded */
+  }
+
+  .text-gray-800 {
+    color: #1f2937; /* Darker text for the description */
+  }
+</style>
+<!-- Current Obsessions Section -->
+<section class="container">
+  <h2 class="section-title">Current Obsessions</h2>
+  <div class="image-grid flex justify-center space-x-6">
+    <div class="image-card">
+      <img src="https://img.freepik.com/free-photo/collection-fresh-rose-petals-plant-twigs_23-2148024688.jpg" alt="Image 1">
+      <div class="text-overlay">Beautiful Rose Petals</div>
+    </div>
+    <div class="image-card">
+      <img src="https://img.freepik.com/free-photo/top-view-assortment-beautiful-tableware-with-copy-space_23-2148835143.jpg" alt="Image 2">
+      <div class="text-overlay">Elegant Tableware</div>
+    </div>
+    <div class="image-card">
+      <img src="https://img.freepik.com/free-photo/delicious-forest-fruits-macarons-compositions_23-2149095745.jpg" alt="Image 3">
+      <div class="text-overlay">Delicious Macarons</div>
+    </div>
+  </div>
+</section>
+
+<style>
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* Centers the section title */
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .image-grid {
+    display: flex;
+    justify-content: center; /* Centers the image grid horizontally */
+    gap: 20px; /* Adds spacing between the images */
+  }
+
+  .image-card {
+    flex: 0 0 auto;
+    width: 300px;
+    position: relative;
+  }
+
+  .image-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .text-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+</style>
+
+
+<!-- Blog Articles -->
+<section class="container mx-auto px-6 py-12">
+  <h2 class="text-3xl font-playfair italic text-center mb-6">Latest Articles</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div th:each="blog : ${blogs}" class="card-hover bg-white shadow-md rounded-lg overflow-hidden">
+      <img th:src="@{${blog.featuredImage}}" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2" th:text="${blog.title}">Lorem ipsum dolor</h3>
+        <a th:href="@{/blog/posts/{id}(id=${blog.id})}" class="bg-accent text-white py-2 px-4 rounded mt-4">Read More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Motivational Quote -->
+    <section class="bg-pinkLight py-12 text-center">
+      <h2 class="text-3xl font-playfair italic">Daily Motivational Quote</h2>
+      <p class="text-lg mt-4 px-6">
+        "The best way to predict the future is to create it."
+      </p>
+
+    </section>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>What's New</title>
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          text-align: center;
+          padding: 20px;
+        }
+
+        .whats-new {
+          margin-top: 20px;
+          margin-bottom: 30px;
+        }
+
+        .section-title {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+
+        .new-items {
+          display: flex;
+          justify-content: center;
+          gap: 15px; /* Khoảng cách giữa các ảnh */
+          flex-wrap: wrap; /* Nếu màn hình nhỏ, ảnh sẽ tự xuống dòng */
+        }
+
+        .new-items img {
+          width: 23%; /* Chia 4 ảnh đều nhau */
+          height: 200px; /* Giới hạn chiều cao */
+          object-fit: cover; /* Cắt ảnh để vừa với khung */
+          border-radius: 10px; /* Bo góc ảnh */
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+          transition: transform 0.3s ease-in-out;
+        }
+
+
+        .new-items img:hover {
+          transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+        }
+      </style>
+    </head>
+    <body>
+
+    <section class="whats-new">
+      <h2 class="section-title">What's New!</h2>
+      <div class="new-items">
+        <img src="https://img.freepik.com/free-photo/medium-shot-woman-with-monstera-plant_23-2148918948.jpg?t=st=1742990645~exp=1742994245~hmac=5a2580a0d5fc44e156cf17c189261812c47cfc91555a8b8c6cae3ec600c77bc3&w=740" alt="Image 1">
+        <img src="https://img.freepik.com/free-photo/room-decor-with-potted-plants-candles-wooden-table_23-2149427997.jpg?t=st=1742990642~exp=1742994242~hmac=e69db130d7f0c8a79c0dd8e99b0e55deb7b2f8f575ad4dcf7e8b73db4e034d28&w=740" alt="Image 2">
+        <img src="https://img.freepik.com/free-photo/beautiful-golden-plants-nature_23-2149435991.jpg?t=st=1742990634~exp=1742994234~hmac=b781518c40ce38d30795f9deda3fae376e7aef41ad3ad1d5c641546b91ce7f8a&w=740" alt="Image 3">
+        <img src="https://img.freepik.com/free-photo/room-interior-design_23-2148899450.jpg?t=st=1742928156~exp=1742931756~hmac=6eb11c28d79237051966a516cf570aad34ed572dfd93d15975e8824956ec016c&w=1380" alt="Image 4">
+      </div>
+    </section>
+
+    </body>
+
+    <!-- Footer -->
+
+    <!-- Footer -->
+    <footer
+      class="bg-gradient-to-r from-red-500 to-pink-500 text-white py-12 text-center"
+    >
+      <h2 class="text-3xl font-playfair italic font-bold">Amelie</h2>
+      <p class="text-lg text-gray-200 mt-2">Life - Home - Food</p>
+
+      <div class="flex justify-center space-x-6 mt-6">
+        <a
+          href="#"
+          class="text-3xl hover:text-yellow-300 transition transform hover:scale-125"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          href="#"
+          class="text-3xl hover:text-yellow-300 transition transform hover:scale-125"
+        >
+          <i class="fab fa-pinterest"></i>
+        </a>
+        <a
+          href="#"
+          class="text-3xl hover:text-yellow-300 transition transform hover:scale-125"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+
+      <p class="text-gray-200 mt-6">
+        &copy; 2025 Amelie Blog. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

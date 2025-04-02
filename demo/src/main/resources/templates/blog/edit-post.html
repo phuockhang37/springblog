@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post | Amelie</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d63384',
+                        secondary: '#f8d7da',
+                        accent: '#ffca28'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- SimpleMDE Markdown Editor -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+</head>
+<body class="font-poppins bg-gray-100">
+
+<!-- Header same as posts.html -->
+
+<main class="pt-24 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar same as dashboard -->
+
+            <!-- Edit Post Form -->
+            <div class="md:w-3/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold mb-6">Edit Post</h2>
+
+                    <form th:action="@{/blog/posts/{id}/edit(id=${post.id})}" method="post" th:object="${post}">
+                        <div class="mb-6">
+                            <label for="title" class="block text-gray-700 font-medium mb-2">Post Title</label>
+                            <input type="text" id="title" th:field="*{title}"
+                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                   required>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="excerpt" class="block text-gray-700 font-medium mb-2">Excerpt</label>
+                            <textarea id="excerpt" th:field="*{excerpt}" rows="3"
+                                      class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="content" class="block text-gray-700 font-medium mb-2">Content</label>
+                            <textarea id="content" th:field="*{content}"></textarea>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="featuredImage" class="block text-gray-700 font-medium mb-2">Featured Image URL</label>
+                            <input type="url" id="featuredImage" th:field="*{featuredImage}"
+                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" th:field="*{published}" class="rounded text-primary">
+                                <span class="ml-2">Publish</span>
+                            </label>
+                        </div>
+
+                        <div class="flex justify-end space-x-4">
+                            <a th:href="@{/blog/posts}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-6 rounded-full transition">
+                                Cancel
+                            </a>
+                            <button type="submit" class="bg-primary hover:bg-pink-700 text-white font-medium py-2 px-6 rounded-full transition">
+                                Update Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer same as dashboard -->
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Markdown editor
+        const simplemde = new SimpleMDE({
+            element: document.getElementById("content"),
+            spellChecker: false,
+            toolbar: ["bold", "italic", "heading", "|",
+                "quote", "unordered-list", "ordered-list", "|",
+                "link", "image", "|", "preview", "side-by-side", "fullscreen"]
+        });
+
+        // Mobile menu toggle same as dashboard
+    });
+</script>
+
+</body>
+</html>

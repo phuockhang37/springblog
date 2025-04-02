@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title} + ' | Amelie'">View Post | Amelie</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d63384',
+                        secondary: '#f8d7da',
+                        accent: '#ffca28'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Markdown CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/github.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.2.0/github-markdown.min.css">
+</head>
+<body class="font-poppins bg-gray-100">
+
+<!-- Header same as posts.html -->
+
+<main class="pt-24 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar same as dashboard -->
+
+            <!-- Post Content -->
+            <div class="md:w-3/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="mb-6">
+                        <h1 class="text-3xl font-playfair font-bold" th:text="${post.title}">Post Title</h1>
+                    </div>
+
+                    <div class="mb-6">
+                        <img th:if="${post.featuredImage}" th:src="${post.featuredImage}"
+                             class="w-full h-64 object-cover rounded-lg mb-4">
+                        <p class="text-gray-600 italic" th:text="${post.excerpt}">Post excerpt</p>
+                    </div>
+
+                    <div class="markdown-body" th:utext="${post.content}">
+                        <!-- Markdown content will be rendered here -->
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-gray-200 text-sm text-gray-500">
+                        <span th:text="'Posted on ' + ${#temporals.format(post.createdAt, 'MMMM dd, yyyy')}"></span>
+                        <span th:if="${post.views > 0}" th:text="' | ' + ${post.views} + ' views'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer same as dashboard -->
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mobile menu toggle same as dashboard
+    });
+</script>
+
+</body>
+</html>

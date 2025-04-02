@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Dashboard | Amelie</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d63384',
+                        secondary: '#f8d7da',
+                        accent: '#ffca28'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="font-poppins bg-gray-100">
+
+<!-- Header -->
+<header class="fixed w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <a th:href="@{/}" class="text-3xl font-playfair italic text-primary">Amelie</a>
+        <nav class="hidden md:block">
+            <ul class="flex space-x-8">
+                <li><a th:href="@{/admin}" class="text-primary font-medium">Dashboard</a></li>
+                <li><a th:href="@{/blog/posts}" class="text-gray-700 hover:text-primary transition">My Posts</a></li>
+                <li><a th:href="@{/blog/new}" class="text-gray-700 hover:text-primary transition">New Post</a></li>
+                <li class="text-gray-700">Welcome, <span th:text="${username}" class="font-medium"></span></li>
+                <li><a th:href="@{/logout}" class="text-gray-700 hover:text-primary transition">Logout</a></li>
+            </ul>
+        </nav>
+        <button class="md:hidden text-primary">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="pt-24 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar -->
+            <aside class="md:w-1/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="text-center mb-4">
+                        <div class="w-24 h-24 bg-primary rounded-full mx-auto mb-3 flex items-center justify-center text-white text-3xl">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="font-semibold" th:text="${username}"></h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li>
+                            <a th:href="@{/blog}" class="flex items-center p-2 text-primary bg-secondary rounded">
+                                <i class="fas fa-tachometer-alt mr-3"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/blog/posts}" class="flex items-center p-2 text-gray-700 hover:bg-secondary rounded">
+                                <i class="fas fa-file-alt mr-3"></i>
+                                My Posts
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/blog/new}" class="flex items-center p-2 text-gray-700 hover:bg-secondary rounded">
+                                <i class="fas fa-plus mr-3"></i>
+                                New Post
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/blog/settings}" class="flex items-center p-2 text-gray-700 hover:bg-secondary rounded">
+                                <i class="fas fa-cog mr-3"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Dashboard Content -->
+            <div class="md:w-3/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold mb-6">Dashboard Overview</h2>
+
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-primary text-white rounded-lg p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm">Total Posts</p>
+                                    <h3 class="text-2xl font-bold">5</h3>
+                                </div>
+                                <i class="fas fa-file-alt text-3xl opacity-50"></i>
+                            </div>
+                        </div>
+                        <div class="bg-accent text-white rounded-lg p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm">Total Views</p>
+                                    <h3 class="text-2xl font-bold">1,245</h3>
+                                </div>
+                                <i class="fas fa-eye text-3xl opacity-50"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 text-white rounded-lg p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm">Comments</p>
+                                    <h3 class="text-2xl font-bold">28</h3>
+                                </div>
+                                <i class="fas fa-comments text-3xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-gray-50 rounded-lg">
+                                <div class="bg-primary text-white p-2 rounded-full mr-4">
+                                    <i class="fas fa-pen-fancy text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Published new post</p>
+                                    <p class="text-sm text-gray-600">"The Art of Minimalism" - 2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-3 bg-gray-50 rounded-lg">
+                                <div class="bg-accent text-white p-2 rounded-full mr-4">
+                                    <i class="fas fa-comment text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">New comment received</p>
+                                    <p class="text-sm text-gray-600">On "Coffee Culture" - 5 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Quick Actions</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <a th:href="@{/blog/new}" class="bg-primary hover:bg-pink-700 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center transition">
+                                <i class="fas fa-plus mr-2"></i> New Post
+                            </a>
+                            <a th:href="@{/blog/posts}" class="bg-accent hover:bg-yellow-500 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center transition">
+                                <i class="fas fa-edit mr-2"></i> Manage Posts
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h2 class="text-2xl font-playfair italic">Amelie</h2>
+                <p class="text-gray-400">Blog & Gallery</p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition">
+                    <i class="fab fa-pinterest text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+            <p>© 2023 Amelie Blog. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.md\\:hidden');
+        const navMenu = document.querySelector('nav ul');
+
+        if (menuButton && navMenu) {
+            menuButton.addEventListener('click', () => {
+                navMenu.classList.toggle('hidden');
+                navMenu.classList.toggle('block');
+                navMenu.classList.toggle('absolute');
+                navMenu.classList.toggle('bg-white');
+                navMenu.classList.toggle('w-full');
+                navMenu.classList.toggle('left-0');
+                navMenu.classList.toggle('p-4');
+                navMenu.classList.toggle('shadow-lg');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Posts | Amelie</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d63384',
+                        secondary: '#f8d7da',
+                        accent: '#ffca28'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="font-poppins bg-gray-100">
+
+<!-- Header -->
+<header class="fixed w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <a th:href="@{/}" class="text-3xl font-playfair italic text-primary">Amelie</a>
+        <nav class="hidden md:block">
+            <ul class="flex space-x-8">
+                <li><a th:href="@{/admin}" class="text-gray-700 hover:text-primary transition">Dashboard</a></li>
+                <li><a th:href="@{/blog/posts}" class="text-primary font-medium">My Posts</a></li>
+                <li><a th:href="@{/blog/new}" class="text-gray-700 hover:text-primary transition">New Post</a></li>
+                <li class="text-gray-700">Welcome, <span th:text="${username}" class="font-medium"></span></li>
+                <li><a th:href="@{/logout}" class="text-gray-700 hover:text-primary transition">Logout</a></li>
+            </ul>
+        </nav>
+        <button class="md:hidden text-primary">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="pt-24 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar same as dashboard -->
+
+            <!-- Posts Content -->
+            <div class="md:w-3/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold">My Posts</h2>
+                        <a th:href="@{/blog/new}" class="bg-primary hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-full inline-block transition">
+                            <i class="fas fa-plus mr-2"></i> New Post
+                        </a>
+                    </div>
+
+                    <!-- Posts Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Views</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tr th:each="post : ${posts}">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a th:href="@{/blog/posts/{id}(id=${post.id})}" class="font-medium text-gray-900 hover:text-primary" th:text="${post.title}">Post Title</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span th:if="${post.published}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Published</span>
+                                    <span th:unless="${post.published}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Draft</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-500" th:text="${post.views}">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-500" th:text="${#temporals.format(post.updatedAt, 'MMM dd, yyyy')}">Date</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a th:href="@{/blog/posts/{id}/edit(id=${post.id})}" class="text-primary hover:text-pink-700 mr-3"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/blog/posts/{id}/delete(id=${post.id})}" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this post?')"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer same as dashboard -->
+
+<!-- JavaScript same as dashboard -->
+
+</body>
+</html>
